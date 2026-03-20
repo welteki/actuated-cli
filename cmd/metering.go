@@ -3,7 +3,6 @@ package cmd
 import (
 	"fmt"
 	"net/http"
-	"os"
 	"strings"
 
 	"github.com/self-actuated/actuated-cli/pkg"
@@ -72,7 +71,12 @@ func runMeteringE(cmd *cobra.Command, args []string) error {
 		return fmt.Errorf("pat is required")
 	}
 
-	c := pkg.NewClient(http.DefaultClient, os.Getenv("ACTUATED_URL"))
+	controllerURL, err := getControllerURL()
+	if err != nil {
+		return err
+	}
+
+	c := pkg.NewClient(http.DefaultClient, controllerURL)
 
 	res, status, err := c.GetMetering(pat, owner, host, id, staff)
 	if err != nil {

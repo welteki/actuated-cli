@@ -3,7 +3,6 @@ package cmd
 import (
 	"fmt"
 	"net/http"
-	"os"
 	"strings"
 	"time"
 
@@ -73,7 +72,12 @@ func runAgentLogsE(cmd *cobra.Command, args []string) error {
 		return fmt.Errorf("pat is required")
 	}
 
-	c := pkg.NewClient(http.DefaultClient, os.Getenv("ACTUATED_URL"))
+	controllerURL, err := getControllerURL()
+	if err != nil {
+		return err
+	}
+
+	c := pkg.NewClient(http.DefaultClient, controllerURL)
 
 	res, status, err := c.GetAgentLogs(pat, owner, host, age, staff)
 
