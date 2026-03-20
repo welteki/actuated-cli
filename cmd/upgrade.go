@@ -33,6 +33,9 @@ func makeUpgrade() *cobra.Command {
 }
 
 func runUpgradeE(cmd *cobra.Command, args []string) error {
+	if err := checkGitHubOnly("upgrade"); err != nil {
+		return err
+	}
 
 	allHosts, err := cmd.Flags().GetBool("all")
 	if err != nil {

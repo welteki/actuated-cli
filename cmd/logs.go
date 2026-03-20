@@ -56,6 +56,10 @@ func preRunLogsE(cmd *cobra.Command, args []string) error {
 }
 
 func runLogsE(cmd *cobra.Command, args []string) error {
+	if err := checkGitHubOnly("logs"); err != nil {
+		return err
+	}
+
 	host := strings.TrimSpace(args[0])
 
 	pat, err := getPat(cmd)

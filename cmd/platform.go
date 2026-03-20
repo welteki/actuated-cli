@@ -49,3 +49,13 @@ func validatePlatform(platform string) error {
 		return fmt.Errorf("unsupported platform: %q, supported values: %s, %s", platform, PlatformGitHub, PlatformGitLab)
 	}
 }
+
+// checkGitHubOnly returns an error if the current platform is not GitHub.
+// Use this at the start of command handlers that have not been implemented
+// for other platforms yet.
+func checkGitHubOnly(commandName string) error {
+	if p := getPlatform(); p != PlatformGitHub {
+		return fmt.Errorf("the %q command is not supported for platform %q", commandName, p)
+	}
+	return nil
+}

@@ -35,6 +35,10 @@ VM launches.`,
 }
 
 func runAgentLogsE(cmd *cobra.Command, args []string) error {
+	if err := checkGitHubOnly("agent-logs"); err != nil {
+		return err
+	}
+
 	if len(args) < 1 {
 		return fmt.Errorf("specify the host as an argument")
 	}

@@ -27,6 +27,9 @@ func makeIncreases() *cobra.Command {
 }
 
 func runIncreasesE(cmd *cobra.Command, args []string) error {
+	if err := checkGitHubOnly("increases"); err != nil {
+		return err
+	}
 
 	var owner string
 	if len(args) == 1 {

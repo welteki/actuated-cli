@@ -27,6 +27,9 @@ func makeControllerLogs() *cobra.Command {
 }
 
 func runControllerLogsE(cmd *cobra.Command, args []string) error {
+	if err := checkGitHubOnly("controller logs"); err != nil {
+		return err
+	}
 
 	pat, err := getPat(cmd)
 	if err != nil {

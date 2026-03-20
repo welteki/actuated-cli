@@ -30,6 +30,10 @@ SSH and running "systemctl enable actuated".`,
 }
 
 func runDisableE(cmd *cobra.Command, args []string) error {
+	if err := checkGitHubOnly("disable"); err != nil {
+		return err
+	}
+
 	if len(args) < 1 {
 		return fmt.Errorf("specify the host as an argument")
 	}

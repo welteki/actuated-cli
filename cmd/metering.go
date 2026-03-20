@@ -34,6 +34,10 @@ actuated-cli metering --owner=OWNER --id=ID HOST | vmmeter
 }
 
 func runMeteringE(cmd *cobra.Command, args []string) error {
+	if err := checkGitHubOnly("metering"); err != nil {
+		return err
+	}
+
 	if len(args) < 1 {
 		return fmt.Errorf("specify the host as an argument")
 	}

@@ -33,6 +33,9 @@ status.`,
 }
 
 func runRepairE(cmd *cobra.Command, args []string) error {
+	if err := checkGitHubOnly("repair"); err != nil {
+		return err
+	}
 
 	var owner string
 	if len(args) == 1 {

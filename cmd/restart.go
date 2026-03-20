@@ -33,6 +33,10 @@ func makeRestart() *cobra.Command {
 }
 
 func runRestartE(cmd *cobra.Command, args []string) error {
+	if err := checkGitHubOnly("restart"); err != nil {
+		return err
+	}
+
 	if len(args) < 1 {
 		return fmt.Errorf("specify the host as an argument")
 	}
